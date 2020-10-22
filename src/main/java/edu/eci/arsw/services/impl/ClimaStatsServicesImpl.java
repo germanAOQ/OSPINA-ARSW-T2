@@ -27,6 +27,8 @@ public class ClimaStatsServicesImpl implements ClimaStatsServices {
     @Autowired
     ClimaStatsCache climaCache;
 
+
+    
     @Override
     public City getClimaByCity(String city) {
 
