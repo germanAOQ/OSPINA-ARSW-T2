@@ -78,4 +78,11 @@ public class City {
 		this.presion = presion;
 		this.humedad = humedad;
     }
+
+	@Override
+	public String toString() {
+		return "City [humedad=" + humedad + ", maxTemperatura=" + maxTemperatura + ", minTemperatura=" + minTemperatura
+				+ ", name=" + name + ", presion=" + presion + ", sensacionTermica=" + sensacionTermica
+				+ ", temperatura=" + temperatura + "]";
+	}
 }

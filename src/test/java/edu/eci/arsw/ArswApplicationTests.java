@@ -2,6 +2,7 @@ package edu.eci.arsw;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
@@ -15,6 +16,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import edu.eci.arsw.connection.HttpConnectionService;
+import edu.eci.arsw.model.City;
 import edu.eci.arsw.services.impl.ClimaStatsServicesImpl;
 
 @SpringBootTest
@@ -27,21 +29,26 @@ class ArswApplicationTests {
 	@Autowired
 	ClimaStatsServicesImpl ci;
 
-	
-
 	@Test
-	public void shouldWork() throws UnirestException, JSONException {
-		//List<String> a=t.totalNumbers();
-		//HashMap<String,List<HashMap<String,String>>> b=t.statsNumbers();
-		//System.out.println(a.toString());
-		//System.out.println(b.toString());
+	public void shouldGetCityInformationService() throws JSONException {
+		HttpResponse<JsonNode> temp = ht.getClimaByCiudad("London");
+        String name = "London";
+        String temperatura = Double.toString(temp.getBody().getObject().getJSONObject("main").getDouble("temp"));
+        String sensacionTermica = Double
+                    .toString(temp.getBody().getObject().getJSONObject("main").getDouble("feels_like"));
+        String minTemperatura = Double
+                    .toString(temp.getBody().getObject().getJSONObject("main").getDouble("temp_min"));
+        String maxTemperatura = Double
+                    .toString(temp.getBody().getObject().getJSONObject("main").getDouble("temp_max"));
+        String presion = String.valueOf(temp.getBody().getObject().getJSONObject("main").getLong("pressure"));
+        String humedad = String.valueOf(temp.getBody().getObject().getJSONObject("main").getLong("humidity"));
 
-		//System.out.println(cs.countryStatsNumbers("Colombia"));
+		City ciudad = new City(name, temperatura, sensacionTermica, minTemperatura, maxTemperatura, presion, humedad);
 
-		System.out.println(ci.getClimaByCity("London").getPresion());
 
-		//System.out.println(ht.statsNumbers().getBody().getObject().getJSONObject("data").getJSONArray("covid19Stats").getJSONObject(0).getString("recovered"));
-		
+		City cityObtenido = ci.getClimaByCity("London");
+		assertTrue(ciudad.toString().equals(cityObtenido.toString()));
 	}
+
 
 }
