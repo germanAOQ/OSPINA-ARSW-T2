@@ -25,6 +25,11 @@ public class CoronavirusStatsController {
     @Autowired
     ClimaStatsServices climaServices;
 
+    /**
+     * Permite obtener datos acerca de una ciudad especifica
+     * @param city Ciudad a consultar su clima
+     * @return Información acerca del clima de la ciudad
+     */
     @GetMapping("{city}")
     public ResponseEntity<?> getCasesByCountry(@PathVariable String city) {
         try {

@@ -12,6 +12,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @Service
 public class HttpConnectionServiceImpl implements HttpConnectionService {
 
+	/**
+     * Permite obtener datos acerca de una ciudad especifica
+     * @param city Ciudad a consultar su clima
+     * @return Información acerca del clima de la ciudad
+     */
 	@Override
 	public HttpResponse<JsonNode> getClimaByCiudad(String city) {
 		HttpResponse<JsonNode> response=null;

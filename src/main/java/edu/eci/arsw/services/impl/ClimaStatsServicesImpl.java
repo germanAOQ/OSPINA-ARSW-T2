@@ -29,6 +29,12 @@ public class ClimaStatsServicesImpl implements ClimaStatsServices {
 
 
     
+    /**
+     * Permite obtener datos acerca de una ciudad especifica
+     * @param city Ciudad a consultar su clima
+     * @return Información acerca del clima de la ciudad
+     */
+
     @Override
     public City getClimaByCity(String city) {
 
