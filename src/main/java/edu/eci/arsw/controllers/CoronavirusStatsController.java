@@ -11,14 +11,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import edu.eci.arsw.services.ClimaStatsServices;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Controller;
 
-
-
+@RestController
+@RequestMapping("/clima")
 public class CoronavirusStatsController {
 
-   
+    @Autowired
+    ClimaStatsServices climaServices;
+
+    @GetMapping("{city}")
+    public ResponseEntity<?> getCasesByCountry(@PathVariable String city) {
+        try {
+            String data = new Gson().toJson(climaServices.getClimaByCity(city));
+            return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Recurso no encontrado", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
